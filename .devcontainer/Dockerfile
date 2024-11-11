@@ -1,1 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/rust:latest
+FROM mcr.microsoft.com/devcontainers/universal:linux
+
+RUN $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh /dev/stdin -y
+
