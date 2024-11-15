@@ -1,18 +1,18 @@
 #[derive(Debug)]
 pub struct MyLinkedList {
-    head: Box::<Option<MyLinkedListNode>>
+    head: Option<Box::<MyLinkedListNode>>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct MyLinkedListNode {
     value: i32,
-    next: Box::<Option<MyLinkedListNode>>
+    next: Option<Box::<MyLinkedListNode>>
 }
 
 impl MyLinkedList {
     pub fn new() -> Self {
         MyLinkedList{
-            head: Box::new(None)
+            head: None
         }
     }
 
@@ -36,17 +36,22 @@ impl MyLinkedList {
     }
 
     pub fn add_at_head(&mut self, val: i32) {
-        let new_node = Box::new(Some(MyLinkedListNode{value: val, next: Box::new(None)}));
-        
-        if self.head.is_none() {
-            self.head = new_node;
-            return
+        match self.head {
+            Some(mut node) => {
+                
+
+                node.value = val;
+                node.next = *head_next;
+            }
+            None => {
+                self.head = Some(Box::new(MyLinkedListNode{value: val, next: None}));
+            }
         }
     }
 
     pub fn add_at_tail(&mut self, val: i32) {        
         if self.head.is_none() {
-            self.head = Box::new(Some(MyLinkedListNode{value: val, next: Box::new(None)}));
+            self.head = Some(Box::new(MyLinkedListNode{value: val, next: None}));
             return
         }
 
@@ -60,7 +65,7 @@ impl MyLinkedList {
                             opt_node = node.next.as_mut();
                         }
                         None => {
-                            node.next = Box::new(Some(MyLinkedListNode{value: val, next: Box::new(None)}));
+                            node.next = Some(Box::new(MyLinkedListNode{value: val, next: None}));
                             return
                         }
                     }
