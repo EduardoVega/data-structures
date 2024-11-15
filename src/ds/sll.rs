@@ -36,12 +36,12 @@ impl MyLinkedList {
     }
 
     pub fn add_at_head(&mut self, val: i32) {
-        match self.head {
-            Some(mut node) => {
-                
-
+        let next_node = self.head.clone();
+        
+        match &mut self.head {
+            Some(node) => {  
                 node.value = val;
-                node.next = *head_next;
+                node.next = next_node;
             }
             None => {
                 self.head = Some(Box::new(MyLinkedListNode{value: val, next: None}));
