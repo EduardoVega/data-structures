@@ -10,6 +10,6 @@ fn main() {
     single_linked_list.add_at_head(0);
     
 
-    //println!("{:?}", single_linked_list.get(2));
+    println!("{:?}", single_linked_list.get(2));
     println!("{:?}", single_linked_list);
 }

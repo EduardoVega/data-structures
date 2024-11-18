@@ -49,29 +49,27 @@ impl MyLinkedList {
         }
     }
 
-    pub fn add_at_tail(&mut self, val: i32) {        
-        if self.head.is_none() {
-            self.head = Some(Box::new(MyLinkedListNode{value: val, next: None}));
-            return
-        }
-
-        let mut opt_node = self.head.as_mut();
-
-        loop {
-            match opt_node {
-                Some(node) => {
-                    match node.next.as_ref() {
-                        Some(_) => {
-                            opt_node = node.next.as_mut();
-                        }
-                        None => {
-                            node.next = Some(Box::new(MyLinkedListNode{value: val, next: None}));
-                            return
+    pub fn add_at_tail(&mut self, val: i32) {    
+        match self.head.as_mut() {
+            Some(_) => {
+                let mut node = self.head.as_mut();
+                loop {
+                    if let Some(nnode) = node{
+                        match nnode.next.as_mut() {
+                            Some(_) => {
+                                node = nnode.next.as_mut();
+                            }
+                            None => {
+                                nnode.next = Some(Box::new(MyLinkedListNode{value: val, next: None}));
+                                return
+                            }
                         }
                     }
                 }
-                None => panic!("Node is None")
             }
-        }   
+            None => {
+                self.head = Some(Box::new(MyLinkedListNode{value: val, next: None}));
+            }
+        }
     }
 }
